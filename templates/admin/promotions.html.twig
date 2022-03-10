@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="w-4/5 m-auto text-center">
+        <div class="py-12">
+            <h1 class="text-6xl pt-12 pb-8">
+                Promotions
+            </h1>
+
+            {% if hiscores|length > 0 %}
+                <table class="border-collapse table-auto w-full text-sm">
+                <thead>
+                    <tr class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-centre">
+                    <th>Name</th>
+                    <th>Difficulty</th>
+                    <th>Score</th>
+                    <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-slate-800">
+                    {% for hiscore in hiscores %}
+                        {% if loop.index % 2 == 0 %}
+                            <tr class="bg-gray-100">
+                        {% else %}
+                            <tr>
+                        {% endif %}
+                            <td>{{ hiscore.user.nameFirst ~ ' ' ~ hiscore.user.nameLast }}</td>
+                            <td>{{ hiscore.difficulty.title }}</td>
+                            <td>{{ hiscore.score }}</td>
+                            <td class="text-green-500"><a href="/admin/promotions/new/{{ hiscore.id }}">&uarr;</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            {% else %}
+                There are no promotions to make!
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="w-4/5 m-auto text-center">
+        <div class="py-12">
+            <h1 class="text-6xl pt-12 pb-8">
+                High Scores
+            </h1>
+
+            {% if app.user %}
+                <div class="mx-auto w-4/5 my-8">
+                    <a 
+                        href="/hiscore/create" 
+                        class="uppercase border border-gray-500 text-lg py-4 px-6 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800">
+                        ADD YOUR HIGH SCORE
+                    </a>
+                </div>
+            {% endif %}
+
+            {% if hiscores|length > 0 %}
+                <table class="border-collapse table-auto w-full text-sm">
+                <thead>
+                    <tr class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-centre">
+                    {% if showPosition %}
+                        <th>Position</th>
+                    {% endif %}
+                    <th><a href="/hiscore?sort=name">Name &uarr;</a></th>
+                    <th><a href="/hiscore?sort=difficulty">Difficulty &uarr;</a></th>
+                    <th><a href="/hiscore?sort=score">Score &uarr;</a></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-slate-800">
+                    {% for hiscore in hiscores %}
+                        {% if loop.index % 2 == 0 %}
+                            <tr class="bg-gray-100">
+                        {% else %}
+                            <tr>
+                        {% endif %}
+                            {% if showPosition %}
+                                <td>{{ loop.index }}</td>
+                            {% endif %}
+                            <td><a href="/hiscore/user/{{ hiscore.user.id }}">{{ hiscore.user.nameFirst ~ ' ' ~ hiscore.user.nameLast }}</a></td>
+                            <td><a href="/hiscore/difficulty/{{ hiscore.difficulty.id }}">{{ hiscore.difficulty.title }}</a></td>
+                            <td>{{ hiscore.score }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            {% else %}
+                There are no high scores to show!
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

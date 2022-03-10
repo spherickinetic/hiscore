@@ -1,0 +1,28 @@
+{% extends "./base.html.twig" %}
+
+{% block body %}
+    <div class="w-4/5 m-auto text-center">
+        <div class="py-12">
+        <h1 class="text-6xl pt-12 pb-8">
+            Add High Score
+        </h1>
+
+        <h3>
+            N.B. Your high score will not be visible until it has been moderated by an administrator.
+        </h3>
+
+        {{ form_start(hiscoreForm) }}
+            {{ form_row(hiscoreForm.difficulty) }}
+            {{ form_row(hiscoreForm.score) }}
+            <h3>Your high score must be between 0 and 99999</h3>
+
+            <button 
+                type="submit" 
+                class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg w-1/5 mt-10 font-extrabold py-4 px-8 rounded-3xl">
+                Submit
+            </button>
+
+        {{ form_end(hiscoreForm) }}
+    </div>
+</div>
+{% endblock %}

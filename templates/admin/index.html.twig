@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="w-4/5 m-auto text-center">
+        <div class="py-12">
+            <h1 class="text-6xl pt-12 pb-8">
+                Administration
+            </h1>
+
+            <div class="mx-auto w-4/5 my-8">
+                <a 
+                    href="/admin/promotions" 
+                    class="uppercase border border-gray-500 text-lg py-4 px-6 rounded transition transition-all bg-gray-800 text-white hover:bg-white hover:text-gray-800">
+                    Promote high scores
+                </a>
+            </div>
+
+            {% if hiscores|length > 0 %}
+                <table class="border-collapse table-auto w-full text-sm">
+                <thead>
+                    <tr class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-centre">
+                    <th>Name</th>
+                    <th>Difficulty</th>
+                    <th>Score</th>
+                    <th>Moderated</th>
+                    <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-slate-800">
+                    {% for hiscore in hiscores %}
+                        {% if loop.index % 2 == 0 %}
+                            <tr class="bg-gray-100">
+                        {% else %}
+                            <tr>
+                        {% endif %}
+                            <td>{{ hiscore.user.nameFirst ~ ' ' ~ hiscore.user.nameLast }}</td>
+                            <td>{{ hiscore.difficulty.title }}</td>
+                            <td>{{ hiscore.score }}</td>
+                            <td class="text-green-500">{{ hiscore.moderated ? '&check;' : ''}}</td>
+                            <td class="text-red-500"><a href="/hiscore/delete/{{ hiscore.id }}">&cross;</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            {% else %}
+                There are no high scores to show!
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
